@@ -26,11 +26,11 @@ def main():
         tokens = split_tweet(text)
         for token in tokens:
             grand_total += 1
-            counts[token] = counts.get(token, 1) + 1
+            counts[token] = counts.get(token, 0) + 1
 
     # dump the frequencies
     for token in counts:
-        print token + " " + "%.6f".format(counts[token]/grand_total)
+        print "%s %.12f" % (token.encode('utf-8'), float(counts[token])/float(grand_total))
 
 
 if __name__ == '__main__':
