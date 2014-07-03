@@ -21,7 +21,7 @@ def main():
 
     sorted_counts = sorted(counts.iteritems(), key=operator.itemgetter(1), reverse=True)
     for i in range(1, 10):
-        print sorted_counts[i]
+        print sorted_counts[i][0].encode("utf-8") + " " + str(sorted_counts[i][1])
 
 
 
