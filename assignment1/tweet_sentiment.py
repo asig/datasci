@@ -16,10 +16,12 @@ def load_scores(f):
 def remove_punctuation(text):
     return re.sub(ur"\p{P}+", " ", text)
 
-def compute_score(line):
-    line = remove_punctuation(line).lower()
+
+def tweet_sentiment(tweetJson):
+    node = json.loads(tweetJson)
+    text = remove_punctuation(node.get('text', '')).lower()
     score = 0
-    for term in line.split():
+    for term in text.split():
         if term in scores:
             score += scores[term]
     return score
@@ -32,11 +34,7 @@ def main():
     load_scores(sentiment_file)
 
     for line in tweet_file:
-        node = json.loads(line)
-        text = ''
-        if 'text' in node:
-            text = node['text']
-        score = compute_score(text)
+        score = tweet_sentiment(line)
         print score
 
 
