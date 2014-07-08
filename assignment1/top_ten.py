@@ -20,8 +20,8 @@ def main():
                     counts[tagtext] = counts.get(tagtext, 0) + 1
 
     sorted_counts = sorted(counts.iteritems(), key=operator.itemgetter(1), reverse=True)
-    for i in range(1, 10):
-        print "%s %.6f" % (sorted_counts[i][0].encode("utf-8"), float(sorted_counts[i][1])/grand_total)
+    for i in range(1, 11):
+        print "%s %d" % (sorted_counts[i][0].encode("utf-8"), sorted_counts[i][1])
 
 
 
