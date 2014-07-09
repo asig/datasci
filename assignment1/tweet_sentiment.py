@@ -1,6 +1,6 @@
 import json
 import sys
-import regex as re
+import unicodedata
 
 scores = {}
 
@@ -14,7 +14,9 @@ def load_scores(f):
 
 
 def remove_punctuation(text):
-    return re.sub(ur"\p{P}+", " ", text)
+    punctutation_cats = set(['Pc', 'Pd', 'Ps', 'Pe', 'Pi', 'Pf', 'Po'])
+    return ''.join(x for x in text
+                   if unicodedata.category(x) not in punctutation_cats)
 
 
 def tweet_sentiment(tweetJson):
