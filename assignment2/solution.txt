@@ -1,0 +1,41 @@
+.output 1a.txt
+select count(*) from frequency where docid='10398_txt_earn';
+.output stdout
+
+.output 1b.txt
+select count(term) from frequency where (docid='10398_txt_earn') and count=1;
+.output stdout
+
+.output 1c.txt
+select count(distinct term) from frequency where (docid='10398_txt_earn' or docid='925_txt_trade') and count=1;
+.output stdout
+
+.output 1d.txt
+select count(distinct docid) from frequency where term = 'parliament';
+.output stdout
+
+.output 1e.txt
+select count(*) from (select docid from frequency group by docid having sum(count) > 300);
+.output stdout
+
+.output 1f.txt
+select count(l.docid) from frequency l, frequency r where l.docid = r.docid and l.term = 'transaction' and r.term = 'world'; 
+.output stdout
+
+----------------------
+
+.output 2.txt
+select a.row_num, b.col_num, sum(a.value*b.value) from a, b where a.col_num = b.row_num group by a.row_num, b.col_num;
+.output stdout
+
+---------------------
+
+.output 3a.txt
+select sum(i1.count * i2.count) from frequency i1, frequency i2 where i1.term = i2.term and i1.docid = '10080_txt_crude' and i2.docid = '17035_txt_earn';
+.output stdout
+
+create temporary view query as SELECT 'q' as docid, 'washington' as term, 1 as count  UNION SELECT 'q' as docid, 'taxes' as term, 1 as count UNION  SELECT 'q' as docid, 'treasury' as term, 1 as count;
+.output 3b.txt
+select doc.docid, sum(doc.count * query.count) similarity from frequency doc, query where doc.term = query.term group by doc.docid order by similarity desc limit 1;
+.output stdout
+
